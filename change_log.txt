@@ -1,0 +1,46 @@
+Change Log:
+
+Release 13 beta 1:
+  	- Added Memory/Swap Graphs section ("M" key activates)
+ 	- Added the ability for elmon to display 2 or 3 columns worth of data if the terminal is wide enough. 
+ 	- Added "C" option to toggle multi-column display off. (default is on)
+ 	- Updated Disk Graph output to use same solid color output as CPU graphs.
+ 	- Added a interactive help/menu system that supports the mouse (if available) 
+ 	  and also has the ability to use the arrow keys to interactivly control elmon.
+ 	- Fixed bug that occured if you enabled both show_verbose and show_disk, and then disabled show_disk.
+ 	- Fixed bug where if you only had show verbose enabled ("v") elmon would not
+ 	  update the CPU stats
+ 	- elmon will now display the stat sections in the order that the user enables
+  	  them, with the following exceptions:
+ 		-Help and Verbose windows are always at the top
+ 		-Top processes is always at the bottom
+ 		-If you are in multicolumn mode elmon will check to see if the window
+ 	 	 would better fit in another column
+ 	- David Baril's fix for bug when reading disk group file from nmon forum.  
+	  Previously elmon would only read 2048 bytes per line of the disk group file.  
+	  elmon supports up to 512 disk per disk group, so 2048 bytes isn't big enough.  
+	  This was increased to 4096.
+ 	- David Baril's fix for a bug with the disk groups from nmon forum.  Disk group 
+	  stats would only be updated if other disk related stats were enabled.  
+ 	- Fix for bug when displaying disk groups with show only active disk mode
+ 	  enabled (".").  Bug was discovered by David Baril and reported on nmon forum.
+ 	- Updated long term CPU graph ('l') so it is no longer limited to a fixed width 
+          of 72 columns.  It will now be as wide as the terminal or column is.  
+ 	- Added support for screen refreshes of less than 1 second.  This was added in
+ 	  to make the long term CPU graph changes easier to test.  This might
+ 	  be useful to some people so I left it in.  
+ 	- Added a check when reading the "-s" parameter.  In previous versions,
+ 	  if the user specified something invalid ("-s AA") elmon would set seconds=0
+ 	  and elmon would not work correctly.  Now it will default to 2 seconds.  
+ 	- Only display first 6 characters of interface name when displaying network 
+ 	  stats (on my system I have a couple of interfaces that are more than 6
+ 	  characters and it would make the columns not line up)
+ 	- Fixed bug where disk graph option would put the peak ">" past 100% 
+ 	  (used same method to prevent this that was used for the CPU section)
+ 	- Fixed bug where cpu option would always put the peak ">" one character
+ 	  past the displayed value.  Also fixed bug that occured when the CPU 
+ 	  was busy and then dropped down, elmon would sometimes not update the screen
+ 	  correctly and leave 1 bar of CPU showing at the end of the line.  
+ 	- Instead of the main loop sleeping in 1 second increments, it now sleeps in
+ 	  1/10 of a second increments.  This makes the application respond faster to
+ 	  the user when they press keys.
